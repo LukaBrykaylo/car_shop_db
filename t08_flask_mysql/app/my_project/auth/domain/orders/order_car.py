@@ -3,8 +3,6 @@ from typing import Dict, Any
 
 from t08_flask_mysql.app.my_project import db
 from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
-from t08_flask_mysql.app.my_project.auth.domain.orders.car import Car
-from t08_flask_mysql.app.my_project.auth.domain.orders.order import Order
 
 class OrderCar(db.Model, IDto):
     __tablename__ = "order_car"
@@ -33,6 +31,6 @@ class OrderCar(db.Model, IDto):
         # For simplicity, assuming relationships are not provided in the DTO
         return OrderCar(
             number=dto_dict.get("number"),
-            order=Order.dto_dict.get("order"),
-            car=Car.dto_dict.get("car"),
+            order_id=dto_dict.get("order"),
+            car_id=dto_dict.get("car"),
         )

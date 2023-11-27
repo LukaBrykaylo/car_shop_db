@@ -41,6 +41,6 @@ class Shop(db.Model, IDto):
             cars_number=dto_dict.get("cars_number"),
             street_address=dto_dict.get("street_address"),
             phone=dto_dict.get("phone"),
-            city=City.create_from_dto(dto_dict.get("city_id")),
-            comment=Comment.create_from_dto(dto_dict.get("comment_id")),
+            city_id=dto_dict.get("city"),
+            comment_id=dto_dict.get("comment"),
         )

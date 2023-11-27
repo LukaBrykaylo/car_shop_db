@@ -8,7 +8,5 @@ class CityController(GeneralController):
     """
     _service = city_service
 
-
-
     def find_shops_by_index(self, city_id: int):
         return self._service.find_shops_by_index(city_id)

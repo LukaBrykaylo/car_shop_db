@@ -3,12 +3,6 @@ from typing import Dict, Any
 
 from t08_flask_mysql.app.my_project import db
 from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
-from t08_flask_mysql.app.my_project.auth.domain.orders.body import Body
-from t08_flask_mysql.app.my_project.auth.domain.orders.chassis import Chassis
-from t08_flask_mysql.app.my_project.auth.domain.orders.drive import Drive
-from t08_flask_mysql.app.my_project.auth.domain.orders.engine import Engine
-from t08_flask_mysql.app.my_project.auth.domain.orders.model import Model
-from t08_flask_mysql.app.my_project.auth.domain.orders.photo import Photo
 
 class Car(db.Model, IDto):
     """
@@ -21,6 +15,7 @@ class Car(db.Model, IDto):
     width = db.Column(db.Integer, nullable=False)
     engine_id = db.Column(db.Integer, db.ForeignKey('engine.id'), nullable=False)
     body_id = db.Column(db.Integer, db.ForeignKey('body.id'), nullable=False)
+    body_body_type = db.Column(db.String(45), nullable=False)
     chassis_id = db.Column(db.Integer, db.ForeignKey('chassis.id'), nullable=False)
     drive_id = db.Column(db.Integer, db.ForeignKey('drive.id'), nullable=False)
     photo_id = db.Column(db.Integer, db.ForeignKey('photo.id'), nullable=False)
@@ -43,6 +38,7 @@ class Car(db.Model, IDto):
             "width": self.width,
             "engine": self.engine_id,
             "body": self.body_id,
+            "body_type": self.body_body_type,
             "chassis": self.chassis_id,
             "drive": self.drive_id,
             "photo": self.photo_id,
@@ -51,16 +47,14 @@ class Car(db.Model, IDto):
 
     @staticmethod
     def create_from_dto(dto_dict: Dict[str, Any]) -> Car:
-        # Creating a Car object from DTO may require handling relationships
-        # You might want to extract data for 'engine', 'body', etc., and create related objects
-        # For simplicity, assuming relationships are not provided in the DTO
         return Car(
             length=dto_dict.get("length"),
             width=dto_dict.get("width"),
-            engine=Engine.dto_dict.get("engine_id"),
-            body=Body.dto_dict.get("body_id"),
-            chassis=Chassis.dto_dict.get("chassis_id"),
-            drive=Drive.dto_dict.get("drive_id"),
-            photo=Photo.dto_dict.get("photo_id"),
-            model=Model.dto_dict.get("model_id"),
+            engine_id=dto_dict.get("engine"),
+            body_id=dto_dict.get("body"),
+            body_body_type=dto_dict.get("body_type"),
+            chassis_id=dto_dict.get("chassis"),
+            drive_id=dto_dict.get("drive"),
+            photo_id=dto_dict.get("photo"),
+            model_id=dto_dict.get("model"),
         )

@@ -22,12 +22,6 @@ class OrderCarDAO(GeneralDAO):
             return [car.put_into_dto() for car in cars]
         return []
 
-        # if city:
-        #     # Отримати всі магазини, які мають city_id, яке відповідає індексу міста
-        #     shops = self._session.query(Shop).filter(Shop.city_id == city.id).all()
-        #     return [shop.put_into_dto() for shop in shops]
-        # return []
-
     def find_orders_by_car_id(self, car_id: int) -> List[Order]:
         """
         Gets all orders associated with a specific car.
