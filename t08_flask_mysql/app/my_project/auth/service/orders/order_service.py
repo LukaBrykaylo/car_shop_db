@@ -7,3 +7,6 @@ class OrderService(GeneralService):
     Realisation of Client service.
     """
     _dao = order_dao
+
+    def find_cars(self, order_id: int):
+        return self._dao.find_cars(order_id)

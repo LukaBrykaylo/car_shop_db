@@ -26,9 +26,6 @@ class OrderCar(db.Model, IDto):
 
     @staticmethod
     def create_from_dto(dto_dict: Dict[str, Any]) -> OrderCar:
-        # Creating an OrderCar object from DTO may require handling relationships
-        # You might want to extract data for 'order' and 'car' and create related objects
-        # For simplicity, assuming relationships are not provided in the DTO
         return OrderCar(
             number=dto_dict.get("number"),
             order_id=dto_dict.get("order"),

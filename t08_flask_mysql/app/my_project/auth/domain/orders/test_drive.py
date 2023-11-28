@@ -32,9 +32,6 @@ class TestDrive(db.Model, IDto):
 
     @staticmethod
     def create_from_dto(dto_dict: Dict[str, Any]) -> TestDrive:
-        # Creating a TestDrive object from DTO may require handling relationships
-        # You might want to extract data for 'client', 'car', and 'comment' and create related objects
-        # For simplicity, assuming relationships are not provided in the DTO
         return TestDrive(
             client=Client.create_from_dto(dto_dict.get("client", {})),
             car=Car.create_from_dto(dto_dict.get("car", {})),

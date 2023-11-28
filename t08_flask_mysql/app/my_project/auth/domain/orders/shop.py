@@ -34,9 +34,6 @@ class Shop(db.Model, IDto):
 
     @staticmethod
     def create_from_dto(dto_dict: Dict[str, Any]) -> Shop:
-        # Creating a Shop object from DTO may require handling relationships
-        # You might want to extract data for 'city' and 'comment' and create related objects
-        # For simplicity, assuming relationships are not provided in the DTO
         return Shop(
             cars_number=dto_dict.get("cars_number"),
             street_address=dto_dict.get("street_address"),

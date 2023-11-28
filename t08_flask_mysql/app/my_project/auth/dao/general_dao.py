@@ -14,6 +14,12 @@ class GeneralDAO(ABC):
     _domain_type = None
     _session = db.session
 
+    def get_session(self):
+        """
+        Returns the SQLAlchemy session.
+        """
+        return self._session
+
     def find_all(self) -> List[object]:
         """
         Gets all objects from table.

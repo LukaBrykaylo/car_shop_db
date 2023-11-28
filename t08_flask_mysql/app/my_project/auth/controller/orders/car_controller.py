@@ -7,3 +7,6 @@ class CarController(GeneralController):
     Realisation of Client controller.
     """
     _service = car_service
+
+    def find_orders(self, car_id: int):
+        return self._service.find_orders(car_id)

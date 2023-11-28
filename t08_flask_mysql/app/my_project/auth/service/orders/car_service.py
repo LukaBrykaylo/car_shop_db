@@ -7,3 +7,6 @@ class CarService(GeneralService):
     Realisation of Client service.
     """
     _dao = car_dao
+
+    def find_orders(self, car_id: int):
+        return self._dao.find_orders(car_id)

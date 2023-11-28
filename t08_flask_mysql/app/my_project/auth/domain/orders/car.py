@@ -4,6 +4,15 @@ from typing import Dict, Any
 from t08_flask_mysql.app.my_project import db
 from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
 
+order_has_car = db.Table(
+    'order_has_car',
+    db.Column('order_id', db.Integer, db.ForeignKey('order.id'), primary_key=True),
+    db.Column('car_id', db.Integer, db.ForeignKey('car.id'), primary_key=True),
+    db.UniqueConstraint('order_id', 'car_id', name='uq_order_has_car'),
+    extend_existing=True
+)
+
+
 class Car(db.Model, IDto):
     """
     Model declaration for Data Mapper.
@@ -27,6 +36,9 @@ class Car(db.Model, IDto):
     drive = db.relationship('Drive', backref='cars')
     photo = db.relationship('Photo', backref='cars')
     model = db.relationship('Model', backref='cars')
+
+    # Relationship M:M with Order
+    orders = db.relationship("Order", secondary="order_has_car", back_populates="cars")
 
     def __repr__(self) -> str:
         return f"Car({self.id}, {self.length}, {self.width}, {self.engine}, {self.body}, {self.chassis}, {self.drive}, {self.photo}, {self.model})"

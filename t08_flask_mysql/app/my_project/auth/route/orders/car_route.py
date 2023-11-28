@@ -37,3 +37,11 @@ def patch_car(car_id: int) -> Response:
 def delete_car(car_id: int) -> Response:
     car_controller.delete(car_id)
     return make_response("Car deleted", HTTPStatus.OK)
+
+@car_bp.get('/<int:car_id>/car_orders')
+def get_all_cars_from_orders(car_id) -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(car_controller.find_orders(car_id)), HTTPStatus.OK)
