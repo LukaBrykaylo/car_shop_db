@@ -22,6 +22,7 @@ class Order(db.Model, IDto):
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
     shop_id = db.Column(db.Integer, db.ForeignKey('shop.id'), nullable=False)
     order_time = db.Column(db.Date, nullable=False)
+    # all_cars = []
 
     client = db.relationship('Client', backref='orders')
     shop = db.relationship('Shop', backref='orders')
@@ -38,12 +39,14 @@ class Order(db.Model, IDto):
             "client": self.client_id,
             "shop": self.shop_id,
             "order_time": self.order_time.isoformat(),  # Convert Date to ISO format for serialization
+            # "all_cars": self.all_cars,
         }
 
     @staticmethod
     def create_from_dto(dto_dict: Dict[str, Any]) -> Order:
         return Order(
             order_time=dto_dict.get("order_time"),
-            client=Client.dto_dict.get("client"),
-            shop=Shop.dto_dict.get("shop"),
+            client_id=dto_dict.get("client"),
+            shop_id=dto_dict.get("shop"),
+            # all_cars=dto_dict.get("all_cars"),
         )

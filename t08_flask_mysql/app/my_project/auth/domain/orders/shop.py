@@ -3,8 +3,8 @@ from typing import Dict, Any
 
 from t08_flask_mysql.app.my_project import db
 from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
-from t08_flask_mysql.app.my_project.auth.domain.orders.city import City
-from t08_flask_mysql.app.my_project.auth.domain.orders.comment import Comment
+# from t08_flask_mysql.app.my_project.auth.domain.orders.city import City
+# from t08_flask_mysql.app.my_project.auth.domain.orders.comment import Comment
 
 class Shop(db.Model, IDto):
     __tablename__ = "shop"
