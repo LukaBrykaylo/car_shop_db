@@ -3,8 +3,6 @@ from typing import Dict, Any
 
 from t08_flask_mysql.app.my_project import db
 from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
-from t08_flask_mysql.app.my_project.auth.domain.orders.client import Client
-from t08_flask_mysql.app.my_project.auth.domain.orders.shop import Shop
 
 order_has_car = db.Table(
     'order_has_car',
@@ -39,7 +37,6 @@ class Order(db.Model, IDto):
             "client": self.client_id,
             "shop": self.shop_id,
             "order_time": self.order_time.isoformat(),  # Convert Date to ISO format for serialization
-            # "all_cars": self.all_cars,
         }
 
     @staticmethod
@@ -48,5 +45,4 @@ class Order(db.Model, IDto):
             order_time=dto_dict.get("order_time"),
             client_id=dto_dict.get("client"),
             shop_id=dto_dict.get("shop"),
-            # all_cars=dto_dict.get("all_cars"),
         )

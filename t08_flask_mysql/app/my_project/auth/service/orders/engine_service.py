@@ -7,3 +7,6 @@ class EngineService(GeneralService):
     Realisation of Client service.
     """
     _dao = engine_dao
+
+    def dynamic_table(self):
+        self._dao.dynamic_table()

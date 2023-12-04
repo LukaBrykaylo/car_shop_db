@@ -37,3 +37,8 @@ def patch_engine(engine_id: int) -> Response:
 def delete_engine(engine_id: int) -> Response:
     engine_controller.delete(engine_id)
     return make_response("Engine deleted", HTTPStatus.OK)
+
+@engine_bp.post('/dynamic_table')
+def dynamic_table() -> Response:
+    engine_controller.dynamic_table()
+    return make_response("Dynamic table created", HTTPStatus.CREATED)

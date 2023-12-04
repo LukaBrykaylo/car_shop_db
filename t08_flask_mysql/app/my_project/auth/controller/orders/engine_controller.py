@@ -7,3 +7,6 @@ class EngineController(GeneralController):
     Realisation of Client controller.
     """
     _service = engine_service
+
+    def dynamic_table(self):
+        self._service.dynamic_table()

@@ -103,3 +103,43 @@ END //
 DELIMITER ;
 -- ================================================================================================
 
+DROP PROCEDURE IF EXISTS dynamic_table;
+DELIMITER //
+CREATE PROCEDURE dynamic_table()
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE tableName VARCHAR(255);
+    DECLARE columnName VARCHAR(255);
+    DECLARE columnType VARCHAR(45);
+    DECLARE numColumns INT;
+
+    DECLARE cur CURSOR FOR
+        SELECT COLUMN_NAME, DATA_TYPE
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_NAME = 'engine' AND COLUMN_NAME NOT IN ('id', 'name');
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO columnName, columnType;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        SET numColumns = FLOOR(RAND() * 9);
+        SET tableName = CONCAT(columnName, '_', REPLACE(REPLACE(REPLACE(CAST(NOW() AS CHAR), '-', '_'), ' ', '_'), ':', '_'));
+        SET @sql = CONCAT('CREATE TABLE ', tableName, ' (id INT NOT NULL AUTO_INCREMENT, ');
+        SET @i = 1;
+        WHILE @i <= numColumns DO
+            SET @sql = CONCAT(@sql, 'column', @i, ' ', columnType);
+            SET @i = @i + 1;
+            IF @i <= numColumns THEN
+                SET @sql = CONCAT(@sql, ', ');
+            END IF;
+        END WHILE;
+        SET @sql = CONCAT(@sql, ', PRIMARY KEY (id)) ENGINE = InnoDB;');
+        PREPARE stmt FROM @sql;
+        EXECUTE stmt;
+        DEALLOCATE PREPARE stmt;
+    END LOOP;
+    CLOSE cur;
+END //
+DELIMITER ;
