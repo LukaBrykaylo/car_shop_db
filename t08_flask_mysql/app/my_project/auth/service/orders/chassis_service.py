@@ -7,3 +7,6 @@ class ChassisService(GeneralService):
     Realisation of Client service.
     """
     _dao = chassis_dao
+
+    def insert_into_chassis(self, chassis_model: str, chassis_wheel_number: int):
+        self._dao.insert_into_chassis(chassis_model, chassis_wheel_number)

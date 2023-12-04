@@ -7,3 +7,6 @@ class PhotoService(GeneralService):
     Realisation of Client service.
     """
     _dao = photo_dao
+
+    def add_ten_photos(self):
+        self._dao.add_ten_photos()

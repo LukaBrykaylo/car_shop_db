@@ -37,3 +37,12 @@ def patch_photo(photo_id: int) -> Response:
 def delete_photo(photo_id: int) -> Response:
     photo_controller.delete(photo_id)
     return make_response("Photo deleted", HTTPStatus.OK)
+
+@photo_bp.post('/insert_ten_photos')
+def add_ten_photos() -> Response:
+    try:
+        photo_controller.add_ten_photos()
+        return make_response("10 Photos added", HTTPStatus.CREATED)
+    except Exception as e:
+        return make_response(e, HTTPStatus.INTERNAL_SERVER_ERROR)
+

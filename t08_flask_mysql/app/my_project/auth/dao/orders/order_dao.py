@@ -1,4 +1,4 @@
-from typing import List
+from sqlalchemy import text
 
 from t08_flask_mysql.app.my_project.auth.dao.general_dao import GeneralDAO
 from t08_flask_mysql.app.my_project.auth.domain import Order
@@ -8,10 +8,6 @@ from t08_flask_mysql.app.my_project.auth.domain.orders.order import order_has_ca
 
 class OrderDAO(GeneralDAO):
     _domain_type = Order
-
-    # def add_order_to_car(self, order_id: int, car_id: int):
-    #     session = self.get_session()
-
 
     def find_cars(self, order_id: int):
         """
@@ -66,3 +62,27 @@ class OrderDAO(GeneralDAO):
         )
 
         session.commit()
+
+    def insert_into_order_car_with_checks(self, order_id: int, car_length:int, car_width: int, car_engine_id: int,
+                                          car_body_id: int, car_body_type: str, car_chassis_id: int, car_drive_id: int,
+                                          car_photo_id: int, car_model_id: int):
+        try:
+            self.get_session().execute(text("CALL insert_into_order_car_with_checks(:order_id, :car_length, "
+            ":car_width, :car_engine_id, :car_body_id, :car_body_type, :car_chassis_id, :car_drive_id, "
+            ":car_photo_id, :car_model_id)"),
+                                       {
+                                           'order_id': order_id,
+                                           'car_length': car_length,
+                                           'car_width': car_width,
+                                           'car_engine_id': car_engine_id,
+                                           'car_body_id': car_body_id,
+                                           'car_body_type': car_body_type,
+                                           'car_chassis_id': car_chassis_id,
+                                           'car_drive_id': car_drive_id,
+                                           'car_photo_id': car_photo_id,
+                                           'car_model_id': car_model_id
+                                       }
+                                       )
+            self.get_session().commit()
+        except Exception as e:
+            print(f"Error: {e}")

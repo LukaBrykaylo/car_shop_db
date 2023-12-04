@@ -37,3 +37,12 @@ def patch_chassis(chassis_id: int) -> Response:
 def delete_chassis(chassis_id: int) -> Response:
     chassis_controller.delete(chassis_id)
     return make_response("Chassis deleted", HTTPStatus.OK)
+
+@chassis_bp.post('/insert_chassis')
+def insert_into_chassis() -> Response:
+    content = request.get_json()
+    chassis_model = content.get('chassis_model')
+    chassis_wheel_number = content.get('chassis_wheel_number')
+
+    chassis_controller.insert_into_chassis(chassis_model, chassis_wheel_number)
+    return make_response('chassis added', HTTPStatus.CREATED)

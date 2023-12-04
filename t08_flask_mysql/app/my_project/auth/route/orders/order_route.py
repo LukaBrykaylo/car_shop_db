@@ -86,3 +86,30 @@ def remove_car_from_order_id(order_id) -> Response:
 
     except Exception as e:
         return make_response(jsonify({"error": str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR)
+
+@order_bp.post('/add_order_car')
+def insert_into_order_car_with_checks() -> Response:
+    content = request.get_json()
+
+    order_id = content.get('order_id')
+    car_length = content.get('car_length')
+    car_width = content.get('car_width')
+    car_engine_id = content.get('car_engine_id')
+    car_body_id = content.get('car_body_id')
+    car_body_type = content.get('car_body_type')
+    car_chassis_id = content.get('car_chassis_id')
+    car_drive_id = content.get('car_drive_id')
+    car_photo_id = content.get('car_photo_id')
+    car_model_id = content.get('car_model_id')
+
+    if any(cont is None for cont in [order_id, car_length, car_width, car_engine_id,
+                                     car_body_id, car_body_type, car_chassis_id, car_drive_id,
+                                     car_photo_id, car_model_id]):
+        return make_response('Bad Request', HTTPStatus.BAD_REQUEST)
+    try:
+        order_controller.insert_into_order_car_with_checks(order_id, car_length, car_width, car_engine_id,
+                                     car_body_id, car_body_type, car_chassis_id, car_drive_id,
+                                     car_photo_id, car_model_id)
+        return make_response('Added', HTTPStatus.CREATED)
+    except Exception as e:
+        return make_response(f'Error: {str(e)}', HTTPStatus.INTERNAL_SERVER_ERROR)

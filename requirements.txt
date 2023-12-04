@@ -6,3 +6,4 @@ flask
 flask_restx
 flask_sqlalchemy
 mysqlclient
+sqlalchemy

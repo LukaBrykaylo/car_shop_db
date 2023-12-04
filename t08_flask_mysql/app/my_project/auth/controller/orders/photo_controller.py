@@ -7,3 +7,6 @@ class PhotoController(GeneralController):
     Realisation of Client controller.
     """
     _service = photo_service
+
+    def add_ten_photos(self):
+        self._service.add_ten_photos()

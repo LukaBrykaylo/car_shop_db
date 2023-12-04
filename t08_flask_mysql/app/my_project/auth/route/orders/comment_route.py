@@ -37,3 +37,7 @@ def patch_comment(comment_id: int) -> Response:
 def delete_comment(comment_id: int) -> Response:
     comment_controller.delete(comment_id)
     return make_response("Comment deleted", HTTPStatus.OK)
+
+@comment_bp.get('/get_rate_value/<comments_value_by>')
+def get_comment_value(comments_value_by: str) -> Response:
+    return make_response(jsonify(comment_controller.get_comment_value(comments_value_by)), HTTPStatus.OK)
