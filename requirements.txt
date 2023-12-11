@@ -1,0 +1,9 @@
+pylint
+PyYAML
+jsonschema
+waitress
+flask
+flask_restx
+flask_sqlalchemy
+mysqlclient
+sqlalchemy
